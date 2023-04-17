@@ -1,7 +1,7 @@
 import streamlit as st
 import face_recognition
 import numpy as np
-from PIL import Image, ImageDraw
+import cv2 as cv
 
 def recognize(search_for, search_in):
   # Load a sample picture and learn how to recognize it.
@@ -15,12 +15,8 @@ def recognize(search_for, search_in):
   face_locations = face_recognition.face_locations(unknown_image)
   face_encodings = face_recognition.face_encodings(unknown_image, face_locations)
 
-  # Convert the image to a PIL-format image so that we can draw on top of it with the Pillow library
-  # See http://pillow.readthedocs.io/ for more about PIL/Pillow
-  pil_image = Image.fromarray(unknown_image)
+  cv_image = cv.imread(unknown_image)
 
-  # Create a Pillow ImageDraw Draw instance to draw with
-  draw = ImageDraw.Draw(pil_image)
 
   # Loop through each face found in the unknown image
   for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
@@ -33,14 +29,11 @@ def recognize(search_for, search_in):
       best_match_index = np.argmin(face_distances)
       if matches[best_match_index]:
 
-          # Draw a box around the face using the Pillow module
-          draw.rectangle(((left - 20, top - 20), (right + 20, bottom + 20)), outline=(255, 0, 0), width=20)
-
-  # Remove the drawing library from memory as per the Pillow docs
-  del draw
+          # Draw a box around the face 
+	  cv.rectangle(cv_image, (left - 20, top - 20), (right + 20, bottom + 20), (255, 0, 0), 20)
 
   # Display the resulting image
-  pil_image.show()  
+  cv.imshow("Output", cv_image)  
 
 def main():
 	"""Face Search App"""
