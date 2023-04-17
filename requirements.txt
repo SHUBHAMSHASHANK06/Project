@@ -1,4 +1,5 @@
 streamlit
+dlib
 face-recognition
 numpy
 opencv-python
