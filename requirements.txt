@@ -1,5 +1,5 @@
 streamlit
 face-recognition
 numpy
-dlib
-pillow
+dlib==19.24.1
+pillow==9.5.0
