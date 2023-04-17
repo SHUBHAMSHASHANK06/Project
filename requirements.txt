@@ -1,6 +1,4 @@
 streamlit
 face-recognition
 numpy
-cmake
-dlib
-pillow
+opencv
