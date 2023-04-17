@@ -1,4 +1,4 @@
 streamlit
 face-recognition
 numpy
-pillow
+pillow=9.5.0
